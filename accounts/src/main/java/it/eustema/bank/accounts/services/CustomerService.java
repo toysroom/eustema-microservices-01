@@ -1,6 +1,7 @@
 package it.eustema.bank.accounts.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,17 @@ public class CustomerService {
 	public List<Customer> getAll()
 	{
 		return this.customerRepository.findAll();
+	}
+	
+	
+	public Optional<Customer> getById(Long id)
+	{
+		return this.customerRepository.findById(id);
+	}
+	
+	public Customer store(Customer customerRequest)
+	{
+		Customer customerAdded = this.customerRepository.save(customerRequest);
+		return customerAdded;
 	}
 }
