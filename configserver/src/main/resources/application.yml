@@ -1,0 +1,19 @@
+server:
+   port: 8071
+
+spring:
+   application:
+      name: "configserver"
+   profiles:
+      active: git
+   cloud:
+      config:
+         server:
+            git:
+               uri: "https://github.com/toysroom/eustema-microservices-01-config.git"
+               default-label: main
+               timeout: 10
+               clone-on-start: true
+               force-pull: true
+               
+            
