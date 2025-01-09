@@ -10,7 +10,7 @@
 			"name": "accounts",
 			"item": [
 				{
-					"name": "customers",
+					"name": "customers - all",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -21,6 +21,29 @@
 							],
 							"path": [
 								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - sex",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers?sex=M",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "sex",
+									"value": "M"
+								}
 							]
 						}
 					},
@@ -51,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\"\n}",
+							"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\",\n    \"sex\": \"M\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -117,6 +140,432 @@
 							],
 							"path": [
 								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - all fields",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 1,\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\",\n    \"sex\": \"F\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - sex",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sex\": \"F\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "environment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/environment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apikey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/apikey",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apikey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/version",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busrefresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/busrefresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"busrefresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cards",
+			"item": [
+				{
+					"name": "environment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/environment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/version",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apikey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/apikey",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apikey"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "configserver",
+			"item": [
+				{
+					"name": "accounts",
+					"item": [
+						{
+							"name": "default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/accounts/default",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/accounts/prod",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts",
+										"prod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/accounts/test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cards",
+					"item": [
+						{
+							"name": "default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/cards/default",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cards",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/cards/prod",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cards",
+										"prod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/cards/test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cards",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator/health/readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health/readiness",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
 							]
 						}
 					},
