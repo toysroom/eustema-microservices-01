@@ -14,8 +14,6 @@ public class InfoController {
 		this.environment = environment;
 	}
 	
-	
-	
 	@GetMapping("/environment")
 	public String env()
 	{
@@ -26,5 +24,11 @@ public class InfoController {
 	public String version()
 	{
 		return this.environment.getProperty("version");
+	}
+	
+	@GetMapping("/apikey")
+	public String apikey()
+	{
+		return this.environment.getProperty("googlemapsapi_key");
 	}
 }
