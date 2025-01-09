@@ -1,0 +1,21 @@
+services:
+   network-service:
+      networks:
+         - eustema 
+         
+   base-service:
+      extends:
+         service: network-service
+      environment:
+         SPRING_RABBITMQ_HOST: "rabbit"
+         
+   application-service:
+      extends:
+         service: base-service
+      depends_on:
+         configurationserver:
+            condition: service_healthy
+      environment:
+         SPRING_CONFIG_IMPORT: "optional:configserver:http://configurationserver:8071/"
+         SPRING_PROFILES_ACTIVE: "prod"
+   
