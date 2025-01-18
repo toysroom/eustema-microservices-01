@@ -1,4 +1,4 @@
-package it.eustema.bank.cards.controllers;
+package eu.proximagroup.loans.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,48 +16,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.eustema.bank.cards.dtos.ResponseErrorDto;
-import it.eustema.bank.cards.dtos.ResponseSuccessDto;
-import it.eustema.bank.cards.models.Card;
-import it.eustema.bank.cards.services.CardService;
-import it.eustema.bank.cards.utilities.GeneralTools;
+import eu.proximagroup.loans.dtos.ResponseErrorDto;
+import eu.proximagroup.loans.dtos.ResponseSuccessDto;
+import eu.proximagroup.loans.models.Loan;
+import eu.proximagroup.loans.services.LoanService;
+import eu.proximagroup.loans.utilities.GeneralTools;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/cards")
-public class CardController {
-
+@RequestMapping("/api/loans")
+public class LoanController {
+	
 	@Autowired
-	private CardService cardService;
+	private LoanService loanService;
 	
 	private EntityManager entityManager;
 	
-	@GetMapping("/")
-	public ResponseEntity<ResponseSuccessDto<List<Card>>> index() {
-		List<Card> cards=this.cardService.getAll();
+	@GetMapping
+	public ResponseEntity<ResponseSuccessDto<List<Loan>>> index() {
+		List<Loan> loans=this.loanService.getAll();
 		return ResponseEntity.status(HttpStatus.OK).body(
-			new ResponseSuccessDto<List<Card>>(
+			new ResponseSuccessDto<List<Loan>>(
 					HttpStatus.OK,
 					"IMMETTERE MESSAGGIO CONTANT",
-					cards
+					loans
 					)
 				);
 	}
 	
 	@GetMapping("/search/params")
-	public ResponseEntity<ArrayList<Card>> search(@RequestParam String mobileNumber)
+	public ResponseEntity<ArrayList<Loan>> search(@RequestParam String mobileNumber)
 	{
-		ArrayList<Card> cards = this.cardService.getByMobileNumber(mobileNumber);
+		ArrayList<Loan> loans = this.loanService.getByMobileNumber(mobileNumber);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(
-			cards
+			loans
 		);
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> store(@Valid @RequestBody Card card,BindingResult result, HttpServletRequest request) {
+	public ResponseEntity<?> store(@Valid @RequestBody Loan loan,BindingResult result, HttpServletRequest request) {
 		if(result.hasErrors()) {
 			List<String> errorMessages=new ArrayList<String>();
 			result.getAllErrors().forEach(error -> errorMessages.add(error.getDefaultMessage()));
@@ -71,22 +71,20 @@ public class CardController {
 					
 					);
 		}
-		
-		// this.cardService.getById(card.getId());
-		
-		Card cardSaved = this.cardService.store(card);
+				
+		Loan loanSaved=this.loanService.store(loan);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(
-				new ResponseSuccessDto<Card>(
+				new ResponseSuccessDto<Loan>(
 						HttpStatus.CREATED, 
 						"INSERIRE UNA COSTANTE", 
-						cardSaved
+						loanSaved
 					)
 				);
 	}
 	
 	
-	public ResponseEntity<?> update(@PathVariable String pathId,@Valid @RequestBody Card card,BindingResult result, HttpServletRequest request) {
+	public ResponseEntity<?> update(@PathVariable String pathId,@Valid @RequestBody Loan loan,BindingResult result, HttpServletRequest request) {
 		GeneralTools.checkId(pathId, request);
 		if(result.hasErrors()) {
 			List<String> errorMessages=new ArrayList<String>();
@@ -101,14 +99,14 @@ public class CardController {
 					
 					);
 		}
-		this.cardService.update(card, Long.parseLong(pathId));
+		this.loanService.update(loan, Long.parseLong(pathId));
 		this.entityManager.clear();
-		Card cardUpdated=this.cardService.getById(Long.parseLong(pathId));
+		Loan loanUpdated=this.loanService.getById(Long.parseLong(pathId));
 		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseSuccessDto<Card>(
+				new ResponseSuccessDto<Loan>(
 						HttpStatus.CREATED,
 						"INSERIRE COSTANTE",
-						cardUpdated
+						loanUpdated
 					)
 				);
 	}
@@ -116,13 +114,13 @@ public class CardController {
 	@DeleteMapping("/{pathId}")
 	public ResponseEntity<?> destroy(@PathVariable String pathId, HttpServletRequest request) {
 		GeneralTools.checkId(pathId, request);
-		Card cardDeleted=this.cardService.getById(Long.parseLong(pathId));
-		this.cardService.deleteById(Long.parseLong(pathId));
+		Loan loanDeleted=this.loanService.getById(Long.parseLong(pathId));
+		this.loanService.deleteById(Long.parseLong(pathId));
 		return ResponseEntity.status(HttpStatus.OK).body(
-			new ResponseSuccessDto<Card>(
+			new ResponseSuccessDto<Loan>(
 					HttpStatus.CREATED,
 					"INSERIRE COSTANTE",
-					cardDeleted
+					loanDeleted
 					)
 				);
 	}

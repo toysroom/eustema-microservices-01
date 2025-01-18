@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.eustema.bank.accounts.dto.CustomerDetailsResponseDto;
 import it.eustema.bank.accounts.dto.CustomerRequestDto;
 import it.eustema.bank.accounts.dto.CustomerResponseDto;
 import it.eustema.bank.accounts.dto.ResponseErrorDto;
@@ -29,6 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/api/customers")
 public class CustomerController {
 	
 	private CustomerService customerService;
@@ -41,7 +44,7 @@ public class CustomerController {
 	}
 	
 	
-	@GetMapping("/customers")
+	@GetMapping("")
 	public ResponseEntity<List<Customer>> index(@RequestParam(defaultValue = "") String sex)
 	{
 		List<Customer> customers = null;
@@ -57,7 +60,7 @@ public class CustomerController {
 	}	
 	
 	
-	@GetMapping("/customers/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> show(
 		@PathVariable Long id
 	)
@@ -70,13 +73,14 @@ public class CustomerController {
 	}
 	
 	
-	@PostMapping("/customers")
+	@PostMapping("")
 	public ResponseEntity<?> store(
 		@Valid @RequestBody CustomerRequestDto customerRequest,
 		BindingResult result,
 		HttpServletRequest request
 	)
-	{		
+	{	
+		// controllo di validazione della request
 		if (result.hasErrors())
 		{
 			ArrayList<String> errors = new ArrayList<String>();
@@ -91,6 +95,27 @@ public class CustomerController {
 				)
 			);
 		}
+		
+		
+		// controllo che non esista record con stessa email o telefono
+		Optional<Customer> existingCustomer = customerService.getByEmailOrMobileNumber(customerRequest.getEmail(), customerRequest.getMobileNumber());
+        if (existingCustomer.isPresent())
+        {
+        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            	new ResponseErrorDto<String>(
+            		request.getRequestURI(),
+            		request.getMethod(),
+            		HttpStatus.BAD_REQUEST,
+            		"Email o telefono già registrati"
+            	)
+            );
+        }
+		
+		
+		
+		
+		
+		
 		
 		// mapper request dto -> entity
 		Customer customer = CustomerMapper.toEntity(customerRequest);
@@ -111,7 +136,7 @@ public class CustomerController {
 	}
 	
 	
-	@PutMapping("/customers/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> update(
 		@PathVariable Long id,
 		@Valid @RequestBody CustomerRequestDto customerRequest,
@@ -140,7 +165,7 @@ public class CustomerController {
 	}
 	
 	
-	@PatchMapping("/customers/{id}")
+	@PatchMapping("/{id}")
 	public ResponseEntity<?> updateFields(
 		@PathVariable Long id,
 		@RequestBody Map<String, String> updateFields
@@ -164,7 +189,7 @@ public class CustomerController {
 	}
 	
 	
-	@DeleteMapping("/customers/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> destroy(
 		@PathVariable Long id
 	)
@@ -173,6 +198,23 @@ public class CustomerController {
 		
 		this.customerService.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/details")
+	public ResponseEntity<CustomerDetailsResponseDto> details(@RequestParam String mobileNumber)
+	{
+		// richiamre nel servizio un metodo ...
+		CustomerDetailsResponseDto customerDetailsResponseDto = this.customerService.fetchCustomerDetails(mobileNumber);
+		
+		
+		// restituire risposta
+		
+		return ResponseEntity.status(HttpStatus.OK).body(customerDetailsResponseDto);
 	}
 	
 }

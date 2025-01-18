@@ -31,6 +31,24 @@ management:
    endpoints:
       web:
          exposure:
-            include: "*"    
+            include: "refresh, busrefresh, info"
+   info:
+     env:
+        enabled: true
       
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      fetchRegistry: true
+      registerWithEureka: true
+      serviceUrl:
+         defaultZone: http://localhost:8070/eureka      
+      
+info:
+   app:
+      name: "accounts"
+      description: "Microservizio che gestisce gli account"
+      version: "1.0.0"
+            
 version: 0.0.1

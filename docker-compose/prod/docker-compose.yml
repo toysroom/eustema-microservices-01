@@ -3,11 +3,36 @@ networks:
       driver: "bridge"
       
 services:
+   accountsdb:
+      container_name: accountsdb
+      ports:
+         - 3306:3306
+      environment:
+         MYSQL_DATABASE: accountsdb
+      extends:
+         file: common-config.yml
+         service: microservice-db
+      volumes:
+         - ../../db-data/accounts:/var/lib/mysql
+
+   cardsdb:
+      container_name: cardsdb
+      ports:
+         - 3307:3306
+      environment:
+         MYSQL_DATABASE: cardsdb
+      extends:
+         file: common-config.yml
+         service: microservice-db
+      volumes:
+         - ../../db-data/cards:/var/lib/mysql
+
+
    rabbit:
       extends:
          file: common-config.yml
          service: network-service
-      container_name: "eustema_rabbit"
+      container_name: eustema_rabbit
       image: rabbitmq:4.0-management
       ports:
          - 5672:5672
@@ -39,6 +64,28 @@ services:
          retries: 10
          start_period: 10s
          
+   eurekaserver:
+      container_name: "eustema_eurekaserver"  
+      image: "eustema_eurekaserver:v1"
+      build:
+         context: "../../eurekaserver"
+      ports:
+         - 8070:8070
+      extends:
+         file: common-config.yml
+         service: network-service
+      environment:
+         SPRING_CONFIG_IMPORT: "optional:configserver:http://configurationserver:8071/"
+      healthcheck:
+         test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+         interval: 10s
+         timeout: 5s
+         retries: 10
+         start_period: 10s
+      depends_on:
+         configurationserver:
+            condition: service_healthy
+      
    accounts:
       extends:
          file: common-config.yml
@@ -47,8 +94,13 @@ services:
       image: "eustema_accounts:v1"
       build:
          context: "../../accounts"
+      depends_on:
+         accountsdb:
+            condition: service_healthy
       ports:
          - 8080:8080
+      environment:
+         SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
             
    cards:
       extends:
@@ -58,6 +110,11 @@ services:
       image: "eustema_cards:v1"
       build:
          context: "../../cards"
+      depends_on:
+         cardsdb:
+            condition: service_healthy
       ports:
          - 9000:9000
+      environment:
+         SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
           
