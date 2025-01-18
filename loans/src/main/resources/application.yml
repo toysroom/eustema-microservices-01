@@ -3,15 +3,13 @@ server:
 spring: 
    application:
       name: loans
+   profiles:
+      active: default
    datasource:
-      url: jdbc:h2:mem:test
+      url: "jdbc:h2:mem:testdb"
       driver-class-name: org.h2.Driver
       username: sa
       password: ''
-#      url: jdbc:mysql://localhost:3317/loansdb
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      username: root
-#      password: root
    jpa:
       hibernate:
          ddl-auto: update
@@ -19,10 +17,10 @@ spring:
    config:
       import: "optional:configserver:http://localhost:8071/"  
    rabbitmq:
-      host: "localhost"
+      host: localhost
       port: 5672
-      username: "guest"
-      password: "guest"
+      username: guest
+      password: guest
 management:
   endpoints:
     web:
@@ -50,6 +48,6 @@ eureka:
          defaultZone: http://localhost:8070/eureka
 info:
    app:
-      name: "loans"
+      name: ${spring.application.name}
       description: "Microservizio che gestisce loans"
       version: "1.0.0"

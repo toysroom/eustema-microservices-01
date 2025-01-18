@@ -3,15 +3,51 @@ networks:
       driver: "bridge"
       
 services:
+   accountsdb:
+      container_name: eustema_accountsdb
+      ports:
+         - "3306:3306"
+      environment:
+         MYSQL_DATABASE: accountsdb
+      extends:
+         file: common-config.yml
+         service: microservice-db
+      volumes:
+         - "../../db-data/accounts:/var/lib/mysql"
+
+   cardsdb:
+      container_name: eustema_cardsdb
+      ports:
+         - "3307:3306"
+      environment:
+         MYSQL_DATABASE: cardsdb
+      extends:
+         file: common-config.yml
+         service: microservice-db
+      volumes:
+         - "../../db-data/cards:/var/lib/mysql"
+
+   loansdb:
+      container_name: eustema_loansdb
+      ports:
+         - "3308:3306"
+      environment:
+         MYSQL_DATABASE: loansdb
+      extends:
+         file: common-config.yml
+         service: microservice-db
+      volumes:
+         - "../../db-data/loans:/var/lib/mysql"
+         
    rabbit:
+      container_name: eustema_rabbit
+      image: "rabbitmq:4.0-management"
       extends:
          file: common-config.yml
          service: network-service
-      container_name: "eustema_rabbit"
-      image: rabbitmq:4.0-management
       ports:
-         - 5672:5672
-         - 15672:15672
+         - "5672:5672"
+         - "15672:15672"
       healthcheck:
          test: rabbitmq-diagnostics check_port_connectivity
          interval: 10s
@@ -20,15 +56,15 @@ services:
          start_period: 10s
 
    configurationserver:
+      container_name: eustema_configserver
+      image: "eustema_configserver:v1"
       extends:
          file: common-config.yml
          service: base-service
-      container_name: "eustema_configserver"
-      image: "eustema_configserver:v1"
       build:
          context: "../../configserver"
       ports:
-         - 8071:8071
+         - "8071:8071"
       depends_on:
          rabbit:
             condition: service_healthy
@@ -39,25 +75,112 @@ services:
          retries: 10
          start_period: 10s
          
+   eurekaserver:
+      container_name: eustema_eurekaserver
+      image: "eustema_eurekaserver:v1"
+      build:
+         context: "../../eurekaserver"
+      ports:
+         - "8070:8070"
+      extends:
+         file: common-config.yml
+         service: network-service
+      environment:
+         SPRING_CONFIG_IMPORT: "optional:configserver:http://configurationserver:8071/"
+      healthcheck:
+         test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+         interval: 10s
+         timeout: 5s
+         retries: 10
+         start_period: 10s
+      depends_on:
+         configurationserver:
+            condition: service_healthy
+      
    accounts:
       extends:
          file: common-config.yml
          service: application-service
-      container_name: "eustema_accounts"
+      container_name: eustema_accounts
       image: "eustema_accounts:v1"
       build:
          context: "../../accounts"
+      depends_on:
+         accountsdb:
+            condition: service_healthy
       ports:
-         - 8080:8080
+         - "8080:8080"
+      environment:
+         SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
+      healthcheck:
+         test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+         interval: 10s
+         timeout: 5s
+         retries: 10
+         start_period: 10s
             
    cards:
       extends:
          file: common-config.yml
          service: application-service
-      container_name: "eustema_cards"
+      container_name: eustema_cards
       image: "eustema_cards:v1"
       build:
          context: "../../cards"
+      depends_on:
+         cardsdb:
+            condition: service_healthy
       ports:
-         - 9000:9000
-          
+         - "9000:9000"
+      environment:
+         SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
+      healthcheck:
+         test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
+         interval: 10s
+         timeout: 5s
+         retries: 10
+         start_period: 10s
+                  
+   loans:
+      extends:
+         file: common-config.yml
+         service: application-service
+      container_name: eustema_loans
+      image: "eustema_loans:v1"
+      build:
+         context: "../../loans"
+      depends_on:
+         loansdb:
+            condition: service_healthy
+      ports:
+         - "8090:8090"
+      environment:
+         SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
+      healthcheck:
+         test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+         interval: 10s
+         timeout: 5s
+         retries: 10
+         start_period: 10s         
+         
+   gatewayserver:
+      container_name: eustema_gatewayserver
+      image: "eustema_gatewayserver:v1"
+      build:
+         context: "../../gatewayserver/"
+      ports:
+         - "8072:8072"
+      depends_on:
+         accounts: 
+            condition: service_healthy
+         cards: 
+            condition: service_healthy
+         loans: 
+            condition: service_healthy
+      extends:
+         file: common-config.yml
+         service: network-service
+      environment:
+         SPRING_CONFIG_IMPORT: "configserver:http://configurationserver:8071/"
+         EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eurekaserver:8070/eureka/"
+         SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
