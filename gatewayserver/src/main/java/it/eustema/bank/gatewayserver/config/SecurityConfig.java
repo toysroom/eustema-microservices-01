@@ -16,9 +16,11 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
         serverHttpSecurity.authorizeExchange(exchanges -> exchanges
         		.pathMatchers(HttpMethod.GET).permitAll()
-                .pathMatchers("/proxima/accounts/**").authenticated()
-                .pathMatchers("/proxima/cards/**").authenticated()
-                .pathMatchers("/proxima/loans/**").authenticated())
+        		// .pathMatchers(HttpMethod.POST).permitAll()
+                .pathMatchers("/eustema/accounts/**").authenticated()
+                .pathMatchers("/eustema/cards/**").authenticated()
+                .pathMatchers("/eustema/loans/**").authenticated()
+        		)
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec
                         .jwt(Customizer.withDefaults()));
         serverHttpSecurity.csrf(csrfSpec -> csrfSpec.disable());
