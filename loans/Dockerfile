@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk-slim
 
 #Information around who maintains the image
-LABEL "org.opencontainers.image.authors"="toysroom.it"
+#LABEL "org.opencontainers.image.authors"="toysroom.it"
 
 RUN apt-get update && apt-get install -y curl
 
