@@ -34,7 +34,7 @@ public class CardController {
 	
 	private EntityManager entityManager;
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<ResponseSuccessDto<List<Card>>> index() {
 		List<Card> cards=this.cardService.getAll();
 		return ResponseEntity.status(HttpStatus.OK).body(
