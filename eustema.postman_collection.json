@@ -10,212 +10,484 @@
 			"name": "accounts",
 			"item": [
 				{
-					"name": "customers - all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/customers",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - sex",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/customers?sex=M",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers"
-							],
-							"query": [
-								{
-									"key": "sex",
-									"value": "M"
+					"name": "accounts",
+					"item": [
+						{
+							"name": "accounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts"
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers/{id}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/customers/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - all fields",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\",\n    \"sex\": \"M\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/customers",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - name empty",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "accounts/{id} - 200",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/1",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"1"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/customers",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - email not correct",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Ma\",\n    \"email\": \"mariorossi.it\",\n    \"mobileNumber\": \"+345654756767\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "accounts/{id} - 404",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/20",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"20"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/customers",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - all fields",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"customerId\": 1,\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\",\n    \"sex\": \"F\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "accounts - 201",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": \"12345678\",\n    \"accountType\": \"dddd\",\n    \"branchAddress\": \"dsad\",\n    \"customerId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/customers/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "customers - sex",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"sex\": \"F\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "accounts - 201 Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": \"pippo1\",\n    \"accountType\": \"dddd\",\n    \"branchAddress\": \"dsad\",\n    \"firstName\": \"aaaa\",\n    \"lastName\": \"bbbb\",\n    \"email\": \"PIPPO@pluto.it\",\n    \"mobileNumber\": \"+349jrwerwer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/create",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"create"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/customers/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers",
-								"1"
-							]
+						{
+							"name": "accounts - 400",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"pippo1\",\n    \"email\": \"PIPPO.it\",\n    \"mobileNumber\": \"+349jrwerwer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "accounts - 200",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": \"aaa\",\n    \"accountType\": \"bbb\",\n    \"branchAddress\": \"cccc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/1",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "accounts - 400",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"pippo1\",\n    \"email\": \"PIPPO@pluto.it\",\n    \"mobileNumber\": \"+349jrwerwer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/1",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "accounts - 204",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"pippo1\",\n    \"email\": \"PIPPO@pluto.it\",\n    \"mobileNumber\": \"+349jrwerwer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/1",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "accounts - 404",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"pippo1\",\n    \"email\": \"PIPPO@pluto.it\",\n    \"mobileNumber\": \"+349jrwerwer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/{{prefix}}/accounts/10",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"accounts",
+										"10"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "customers/{id}",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/customers/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"customers",
-								"1"
-							]
+					"name": "customers",
+					"item": [
+						{
+							"name": "customers - all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{prefix}}/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - sex",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/customers?sex=M",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers"
+									],
+									"query": [
+										{
+											"key": "sex",
+											"value": "M"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers/{id}",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/customers/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - all fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"00393493203060\",\n    \"sex\": \"M\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{prefix}}/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{prefix}}",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - name empty",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - email not correct",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Ma\",\n    \"email\": \"mariorossi.it\",\n    \"mobileNumber\": \"+345654756767\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - all fields",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"customerId\": 1,\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi.it\",\n    \"mobileNumber\": \"+345654756767\",\n    \"sex\": \"F\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customers/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers - sex",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sex\": \"F\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customers/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customers/{id}",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/customers/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "environment",
@@ -320,6 +592,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "customers/details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{prefix}}/customers/details?mobileNumber=00393493203060",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"customers",
+								"details"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "00393493203060"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health/readiness",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -407,6 +723,285 @@
 							],
 							"path": [
 								"apikey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cards - 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobileNumber\": \"00393493203060\",\n\t\"cardNumber\": \"123456789\",\n    \"cardType\": \"visa\",\n    \"totalLimit\": 100000,\n    \"amountPaid\": 300,\n    \"availableAmount\": 600\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{prefix}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cards - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{prefix}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cards/search/params - 200",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobileNumber\": \"00393493203060\",\n\t\"cardNumber\": \"affsd\",\n    \"cardType\": \"fsdfsdf\",\n    \"totalLimit\": 3456,\n    \"amountPaid\": 235,\n    \"availableAmount\": 5345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{prefix}}/cards/search/params?mobileNumber=00393493203060",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"cards",
+								"search",
+								"params"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "00393493203060"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health/readiness",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "loans",
+			"item": [
+				{
+					"name": "env",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{prefix}}/env",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"env"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseUrl}}/actuator",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator/refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseUrl}}/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loans - 200",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobileNumber\": \"00393493203060\",\n\t\"cardNumber\": \"affsd\",\n    \"cardType\": \"fsdfsdf\",\n    \"totalLimit\": 3456,\n    \"amountPaid\": 235,\n    \"availableAmount\": 5345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/{{prefix}}/loans",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"loans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loans/search/params - 200",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobileNumber\": \"00393493203060\",\n\t\"cardNumber\": \"affsd\",\n    \"cardType\": \"fsdfsdf\",\n    \"totalLimit\": 3456,\n    \"amountPaid\": 235,\n    \"availableAmount\": 5345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/{{prefix}}/loans/search/params?mobileNumber=00393493203060",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"loans",
+								"search",
+								"params"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "00393493203060"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loans - 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mobileNumber\": \"00393493203060\",\n    \"loanNumber\": \"hjhjk\",\n\t\"loanType\": \"affsd\",\n    \"totalLoan\": 45637567,\n    \"amountPaid\": 235,\n    \"outstandingAmount\": 5345\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/{{prefix}}/loans",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{prefix}}",
+								"loans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health/readiness",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
 							]
 						}
 					},
@@ -536,6 +1131,121 @@
 					]
 				},
 				{
+					"name": "loans",
+					"item": [
+						{
+							"name": "loans/default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8071/loans/default",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8071",
+									"path": [
+										"loans",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loans/qa",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8071/loans/qa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8071",
+									"path": [
+										"loans",
+										"qa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loans/prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8071/accounts/prod",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8071",
+									"path": [
+										"accounts",
+										"prod"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "eureka",
+					"item": [
+						{
+							"name": "eurekaserver/default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8071/eurekaserver/default",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8071",
+									"path": [
+										"eurekaserver",
+										"default"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "gatewayserver",
+					"item": [
+						{
+							"name": "gatewayserver/default",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8071/gatewayserver/default",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8071",
+									"path": [
+										"gatewayserver",
+										"default"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "actuator",
 					"request": {
 						"method": "GET",
@@ -566,6 +1276,480 @@
 								"actuator",
 								"health",
 								"readiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "encrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "abcd",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8071/encrypt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deecrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "f5c983bce738f427bf87ca820a3d079b988a033eec229b6e96cfb30fbdb8114794afc45e6fd3bff3e2d25a4b59631a26",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8071/decrypt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"decrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8071/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "eurekaserver",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/actuator/health/readiness",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eureka/apps",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8070/eureka/apps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"eureka",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eureka/apps/accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8070/eureka/apps/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"eureka",
+								"apps",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gatewayserver",
+			"item": [
+				{
+					"name": "customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/eustema/accounts/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"eustema",
+								"accounts",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/eustema/cards/api/cards",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"eustema",
+								"cards",
+								"api",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - 201",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "PvzGaky9lblbZxnAxadL1NScsC2RHqSq",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "eustema-postman",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:7080/realms/master/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "body",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@r333osse2.it\",\n    \"mobileNumber\": \"003934392202261\",\n    \"sex\": \"M\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/eustema/accounts/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"eustema",
+								"accounts",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - 201 Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mario\",\n    \"email\": \"mario@rossi2.it\",\n    \"mobileNumber\": \"00393493202261\",\n    \"sex\": \"M\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8072/eustema/accounts/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"eustema",
+								"accounts",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers - LowerCase",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/eustema/accounts/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"eustema",
+								"accounts",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers Copy 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/accounts/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"accounts",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/actuator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actuator/gateway/routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8072/actuator/gateway/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8072",
+							"path": [
+								"actuator",
+								"gateway",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "keycloack",
+			"item": [
+				{
+					"name": "token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (responseCode.code === 200) {",
+									"    pm.test(\"Your test name\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.environment.set(\"access_token\", jsonData.access_token);",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "eustema-postman",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "PvzGaky9lblbZxnAxadL1NScsC2RHqSq",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
 							]
 						}
 					},
